@@ -23,6 +23,12 @@ double evaluate_rpn(const std::string& expression) {
                 if (b == 0) throw std::invalid_argument("Division by zero");
                 stack.push(a / b);
             }
+        } else if (token == "sqrt") {
+            if (stack.empty()) throw std::invalid_argument("Not enough operands for 'sqrt'");
+            
+            double a = stack.top(); stack.pop();
+            if (a < 0) throw std::invalid_argument("Square root of negative number");
+            stack.push(std::sqrt(a));
         } else {
             try {
                 double value = std::stod(token);
